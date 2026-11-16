@@ -1,0 +1,35 @@
+{
+	admin off
+	auto_https off
+	persist_config off
+	servers {
+		# Railway's edge proxy connects from private ranges and appends the
+		# real client IP to X-Forwarded-For. Hanko reads it for rate limits
+		# and audit logs.
+		trusted_proxies static private_ranges 100.64.0.0/10
+		trusted_proxies_strict
+	}
+}
+
+:{$PORT} {
+	# Browsers opening the bare domain land on the demo page.
+	@browser_root {
+		path /
+		header Accept *text/html*
+		expression {env.DEMO_PAGE} != "false"
+	}
+	redir @browser_root /demo/ 302
+	redir /demo /demo/ 308
+
+	handle_path /demo/* {
+		@demo_off expression {env.DEMO_PAGE} == "false"
+		respond @demo_off "Demo page disabled" 404
+		root * /app/demo
+		file_server
+	}
+
+	# Everything else is Hanko's public API.
+	handle {
+		reverse_proxy 127.0.0.1:8000
+	}
+}

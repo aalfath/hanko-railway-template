@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hanko demo</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 34rem; margin: 3rem auto; padding: 0 1rem; color: #1f2328; }
+    h1 { font-size: 1.4rem; }
+    p, li { line-height: 1.5; }
+    code { background: #f2f3f5; padding: 0 .25rem; border-radius: 3px; }
+    #out { margin-top: 1rem; }
+    button { margin-top: 1rem; padding: .5rem 1rem; }
+    .muted { color: #59636e; font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <h1>Hanko is running</h1>
+  <p>This page uses <a href="https://github.com/teamhanko/hanko/tree/main/frontend/elements">Hanko Elements</a> against
+    this Hanko API. Sign up with an email address and a password, then add a passkey.</p>
+  <hanko-auth id="auth"></hanko-auth>
+  <div id="out" hidden>
+    <p id="who"></p>
+    <hanko-profile></hanko-profile>
+    <button id="logout">Log out</button>
+  </div>
+  <p class="muted">Use the same two lines in your own app:
+    <code>const { hanko } = await register("API URL")</code> and <code>&lt;hanko-auth&gt;</code>.
+    Set <code>APP_URL</code> on the Railway service to your app's URL. Turn this page off with <code>DEMO_PAGE=false</code>.</p>
+  <script type="module">
+    import { register } from "https://cdn.jsdelivr.net/npm/@teamhanko/hanko-elements@3.1.0/dist/elements.js";
+    const { hanko } = await register(window.location.origin);
+    const auth = document.getElementById("auth");
+    const out = document.getElementById("out");
+    async function show() {
+      try {
+        const user = await hanko.getCurrentUser();
+        document.getElementById("who").textContent = "Signed in as " + (user.emails?.[0]?.address || user.user_id);
+        auth.hidden = true; out.hidden = false;
+      } catch (e) { auth.hidden = false; out.hidden = true; }
+    }
+    hanko.onSessionCreated(show);
+    hanko.onUserLoggedOut(show);
+    document.getElementById("logout").onclick = () => hanko.logout();
+    show();
+  </script>
+</body>
+</html>
