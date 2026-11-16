@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.0-1 (2026-11-16)
+
+- README: Deploy on Railway button for the published template `hanko-1`. No change to the deployed service.
+
 ## 3.1.0 (2026-11-16)
 
 - First release: Hanko `v3.1.0` (`ghcr.io/teamhanko/hanko:v3.1.0@sha256:80ea5d67937cb3674bdde157365c57ff04420d5337f1277232d47e858613b19c`), Caddy `2.11.9`, Railway Postgres.

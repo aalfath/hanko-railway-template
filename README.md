@@ -1,5 +1,7 @@
 # Hanko on Railway
 
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/hanko-1?utm_medium=integration&utm_source=button&utm_campaign=hanko)
+
 Railway template for [Hanko](https://github.com/teamhanko/hanko), the open-source, passkey-first authentication and user management API.
 
 It deploys:
