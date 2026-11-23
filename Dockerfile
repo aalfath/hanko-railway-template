@@ -4,7 +4,7 @@
 FROM busybox:1.37.0-musl@sha256:f6a95d611e0a8780fabdb2aec43e31275b2720dfefa3e41b16835bfc42454478 AS busybox
 FROM caddy:2.11.9-alpine@sha256:003a97808e781aa9f7e75cc2f43d34d461099031faf5e20faefb9f61126836f0 AS caddy
 
-FROM ghcr.io/teamhanko/hanko:v3.1.0@sha256:80ea5d67937cb3674bdde157365c57ff04420d5337f1277232d47e858613b19c
+FROM ghcr.io/teamhanko/hanko:v3.2.0@sha256:1ead75c1938c28458b669e1dd9976595e6437d9bc643057f59c5d3c71b4441f6
 
 USER root
 COPY --from=busybox /bin/busybox /bin/busybox
