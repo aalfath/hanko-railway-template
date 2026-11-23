@@ -6,7 +6,7 @@ Railway template for [Hanko](https://github.com/teamhanko/hanko), the open-sourc
 
 It deploys:
 
-- **Hanko** `v3.1.0` (`ghcr.io/teamhanko/hanko:v3.1.0`, pinned by digest in the `Dockerfile`), built from this repo, with:
+- **Hanko** `v3.2.0` (`ghcr.io/teamhanko/hanko:v3.2.0`, pinned by digest in the `Dockerfile`), built from this repo, with:
   - `start.sh`: writes Hanko's `config.yaml` from the Railway variables, runs the database migrations, then starts Hanko.
   - Caddy (`caddy:2.11.9`), which serves Hanko's public API and a small demo page (`/demo/`) on the public domain.
   - Hanko's admin API on port `8001`, reachable only over Railway's private network (`http://hanko.railway.internal:8001`). It has no authentication of its own, so it is never exposed publicly.
